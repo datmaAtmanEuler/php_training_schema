@@ -4,10 +4,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laravel 5.8 - PHP Training Schema</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .table td, .table th {
             padding: 0.25rem !important;
             vertical-align: middle !important;
+        }
+        .fa.fa-plus{
+            color: #178613;
+        }
+        .fa.fa-plus:hover{
+            color: #32c90c;
+        }
+        .fa.fa-pencil{
+            color: #2a1d76;
+        }
+        .fa.fa-pencil:hover{
+            color: #4b34d2;
+        }
+        .fa.fa-trash{
+            color: #760925;
+        }
+        .fa.fa-trash:hover{
+            color: #cd1040;
         }
     </style>
 </head>
@@ -29,6 +48,15 @@
                 $(this).remove();
             });
         }, 1000);
+    }
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function() {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
     }
 </script>
 </body>

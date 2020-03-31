@@ -20,7 +20,7 @@
                     @endif
                     @csrf
                     <div class="row">
-                        <div class="form-group col-6">
+                        <div class="form-group col-5">
                             <label for="parent_id">Parent:</label>
                             <select class="form-control" name="parent_id">
                                 <option value="">---- select ----</option>
@@ -30,13 +30,21 @@
                             </select>
                         </div>
 
-                        <div class="form-group col-6">
+                        <div class="form-group col-5">
                             <label for="category_name">Category:</label>
                             <input type="text" class="form-control" name="category_name" value="{{ isset($category) ? $category->category_name : '' }}" />
+
                         </div>
+                        <button type="submit" class="btn float-right">
+                            @if(isset($category))
+                                <i class='fa fa-2x fa-pencil' title="Save"></i>
+                            @else
+                                <i class='fa fa-2x fa-plus' title="Create"></i>
+                            @endif
+                        </button>
                     </div>
 
-                    <button type="submit" class="btn btn-primary float-right">{{ isset($category) ? "Save" : "Create" }}</button>
+
                 </form>
             </div>
         </div>
