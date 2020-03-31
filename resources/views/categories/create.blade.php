@@ -27,7 +27,11 @@
                                     <select class="form-control" name="parent_id">
                                         <option value="">---- select ----</option>
                                         @foreach($parent_list as $item)
-                                            <option selected="{{isset($category) && $category->parent_id == $item->id}}" value="{{ $item->id }}">{{ $item->category_name }}</option>
+                                            @if(isset($category) && $category->parent_id == $item->id)
+                                                <option selected value="{{ $item->id }}">{{ $item->category_name }}</option>
+                                            @else
+                                                <option value="{{ $item->id }}">{{ $item->category_name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
