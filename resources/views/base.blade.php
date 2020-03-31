@@ -10,16 +10,16 @@
             padding: 0.25rem !important;
             vertical-align: middle !important;
         }
-        .fa.fa-plus{
+        .fa.fa-plus, .fa.fa-2x.fa-plus{
             color: #178613;
         }
-        .fa.fa-plus:hover{
+        .fa.fa-plus:hover, .fa.fa-2x.fa-plus:hover{
             color: #32c90c;
         }
-        .fa.fa-pencil{
+        .fa.fa-pencil, .fa.fa-2x.fa-pencil{
             color: #2a1d76;
         }
-        .fa.fa-pencil:hover{
+        .fa.fa-pencil:hover, .fa.fa-2x.fa-pencil:hover{
             color: #4b34d2;
         }
         .fa.fa-trash{
@@ -27,6 +27,39 @@
         }
         .fa.fa-trash:hover{
             color: #cd1040;
+        }
+        .fa.fa-2x.fa-home{
+            color: #764b2b;
+        }
+        .fa.fa-2x.fa-home:hover{
+            color: #d3864d;
+        }
+        .fa {
+            opacity: 1;
+            font-size: 18px;
+            width: 24px;
+            display: inline-block;
+            border-radius: 50%;
+            box-shadow: 1px 1px 2px 2px #ccc;
+            padding: .15em .15em;
+            background: #fff;
+            cursor: pointer;
+            line-height: 18px!important;
+            margin-top: 5px;
+            color: #454545;
+        }
+        .fa.fa-2x {
+            font-size: 24px;
+            width: 48px;
+            display: inline-block;
+            border-radius: 50%;
+            box-shadow: 1px 1px 2px 2px #ccc;
+            padding: .28em .28em;
+            background: #fff;
+            cursor: pointer;
+            line-height: 32px!important;
+            margin-top: 5px;
+            color: #454545;
         }
     </style>
 </head>
