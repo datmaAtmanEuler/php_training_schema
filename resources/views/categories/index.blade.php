@@ -2,19 +2,24 @@
 @section('main')
     <style>
         #tree1{
-            width: 250px !important;
-            overflow-x: auto !important;
+            max-width: 250px !important;
             overflow-y: auto !important;
-            height: 250px !important;
+            overflow-x: auto !important;
+            min-height: 250px !important;
+        }
+        ul, li{
+            list-style-type: none;
+            width: max-content !important;
         }
     </style>
+    @include('flash-message')
     <div class="pt-3 row">
         <div class="col-sm-3 border border-top-0 border-bottom-0 border-left-0">
             <h3>Categories Tree</h3>
             <ul id="tree1">
                 @foreach($categoriesTreeData as $category)
                     <li>
-                        {{ $category->category_name }}
+                        {{ ($category->id) . ". " . $category->category_name }}
                         @if(count($category->childs))
                             @include('categories.category',['childs' => $category->childs])
                         @endif
@@ -40,13 +45,13 @@
                     <tr>
                         <td>{{$category->id}}</td>
                         <td>{{$category->category_name}}</td>
-                        <td>{{$category->parent_name}}</td>
-                        <td>{{$category->children}}</td>
+                        <td>{{$parentsList[$loop->index]}}</td>
+                        <td>{{$childsList[$loop->index]}}</td>
                         <td>
                             <a href="{{ route('categories.edit',$category->id)}}" class="btn btn-primary">Edit</a>
                         </td>
                         <td>
-                            @if(strlen($category->children) < 1)
+                            @if(strlen($childsList[$loop->index]) < 1)
                                 <form action="{{ route('categories.destroy', $category->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')

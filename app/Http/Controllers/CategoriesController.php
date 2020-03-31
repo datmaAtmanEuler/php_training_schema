@@ -12,6 +12,8 @@ use App\Http\Requests\CategoryCreateRequest;
 use App\Http\Requests\CategoryUpdateRequest;
 use App\Repositories\CategoryRepository;
 use App\Validators\CategoryValidator;
+use Illuminate\Support\Facades\Redirect;
+
 /**
  * Class CategoriesController.
  *
@@ -50,25 +52,26 @@ class CategoriesController extends Controller
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $categoriesTreeData = Category::whereNull('parent_id')->get();
-        $categories = $this->repository->tap(function ($list){
-            foreach ($list as $category) {
-                $category->parent_name = $this->repository->find($category->parent_id)->first()->category_name;
-                $temp = $this->repository->select('category_name')->where('parent_id', $category->id)->get();
-                if($temp->count() > 0) {
-                    $category->children = implode(", ", $temp->pluck('category_name')->toArray());
-                } else {
-                    $category->children = "";
-                }
+        $categories = $this->repository->paginate(10);
+        $parentsList = [];
+        $childsList = [];
+        for($i = 0; $i < $categories->count(); $i++){
+            $category = $categories[$i];
+            array_push($parentsList, $this->repository->findWhere(['id' => $category->parent_id])->pluck('category_name')->first());
+            $temp = $this->repository->where('parent_id', $category->id)->get();
+            if($temp->count() > 0) {
+                array_push($childsList, implode('; ', $temp->pluck('category_name')->toArray()));
+            } else {
+                array_push($childsList, '');
             }
-        })->paginate(10);
+        }
         if (request()->wantsJson()) {
-
             return response()->json([
                 'data' => $categories,
             ]);
         }
 
-        return view('categories.index', compact('categories', 'categoriesTreeData'));
+        return view('categories.index', compact('categories', 'categoriesTreeData', 'parentsList', 'childsList'));
     }
 
     /**
@@ -101,8 +104,7 @@ class CategoriesController extends Controller
 
                 return response()->json($response);
             }
-
-            return redirect()->back()->with('message', $response['message']);
+            return Redirect::to('categories')->with('success', 'Category created.');
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -188,7 +190,7 @@ class CategoriesController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return Redirect::to('categories')->with('success', 'Category updated.');
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {
@@ -222,8 +224,7 @@ class CategoriesController extends Controller
                 'deleted' => $deleted,
             ]);
         }
-
-        return redirect()->back()->with('message', 'Category deleted.');
+        return Redirect::to('categories')->with('success', 'Category deleted.');
     }
 
     public function create()
