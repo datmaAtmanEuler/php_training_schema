@@ -88,7 +88,7 @@
             <h3>Categories List</h3>
             <a href="{{ route('categories.create')}}" class="btn float-right mb-2"><i class="fa fa-2x fa-plus" title="Create"></i></a>
             <div class="grid-area">
-                <table class="table table-striped">
+                <table class="table table-striped table-hover">
                     <thead>
                     <tr>
                         <td>#ID</td>
